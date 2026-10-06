@@ -1,0 +1,52 @@
+{
+  "rules": [
+    {
+      "id": "B12",
+      "causeCode": "NO_ACTIVE_NETWORK",
+      "summary": "设备当前没有活动网络",
+      "confidence": 0.97,
+      "conditions": [
+        { "evidenceType": "NET_OVERVIEW", "status": "OK", "metric": "networkType", "operator": "eq", "value": "NONE" }
+      ]
+    },
+    {
+      "id": "B10",
+      "causeCode": "CAPTIVE_PORTAL_REQUIRED",
+      "summary": "系统检测到门户认证尚未完成",
+      "confidence": 0.95,
+      "conditions": [
+        { "evidenceType": "NET_OVERVIEW", "status": "OK", "metric": "captivePortal", "operator": "eq", "value": "true" }
+      ]
+    },
+    {
+      "id": "B07",
+      "causeCode": "DNS_RESOLUTION_UNAVAILABLE",
+      "summary": "IP 直连可用，但当前 DNS 解析路径不可用；需进一步核对 DNS 配置或服务器",
+      "confidence": 0.78,
+      "conditions": [
+        { "evidenceType": "NET_OVERVIEW", "status": "OK", "metric": "networkType", "operator": "neq", "value": "NONE" },
+        { "evidenceType": "DNS_RESOLVE", "status": "FAILED" },
+        { "evidenceType": "TCP_PROBE", "status": "OK", "metric": "successCount", "operator": "gte", "value": "1" }
+      ]
+    },
+    {
+      "id": "B08",
+      "causeCode": "DNS_SLOW_RESOLUTION",
+      "summary": "本轮成功解析的平均耗时偏高",
+      "confidence": 0.72,
+      "conditions": [
+        { "evidenceType": "DNS_RESOLVE", "status": "OK", "metric": "avgResolveMs", "operator": "gte", "value": "3000" }
+      ]
+    },
+    {
+      "id": "B01",
+      "causeCode": "WIFI_WEAK_SIGNAL",
+      "summary": "WiFi 实测信号弱且 HTTP 首字节响应缓慢",
+      "confidence": 0.72,
+      "conditions": [
+        { "evidenceType": "WIFI_DETAIL", "status": "OK", "metric": "rssiDbm", "operator": "lte", "value": "-85" },
+        { "evidenceType": "HTTP_PROBE", "status": "OK", "metric": "ttfbMs", "operator": "gte", "value": "1000" }
+      ]
+    }
+  ]
+}

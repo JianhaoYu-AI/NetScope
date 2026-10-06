@@ -1,0 +1,37 @@
+# Local build and IDE files
+.gradle/
+.kotlin/
+build/
+.idea/
+*.iml
+.cxx/
+.externalNativeBuild/
+captures/
+*.hprof
+local.properties
+
+# Credentials and signing material
+.env
+.env.*
+!.env.example
+*.jks
+*.keystore
+keystore.properties
+*-key.txt
+*-access-code.txt
+
+# Artifacts and private runtime data
+*.apk
+*.aab
+*.ap_
+*.dex
+*.log
+backend/logs/
+backend/runtime/
+*.jsonl
+quota.json
+*.pending
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db

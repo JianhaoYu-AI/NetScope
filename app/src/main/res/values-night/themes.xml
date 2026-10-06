@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+      深色模式下的窗口背景。若不提供，系统深色主题下启动瞬间会出现白色闪屏，
+      在演示视频里非常显眼（10/7 录毛片时才发现就来不及了）。
+    -->
+    <style name="Theme.NetScope" parent="android:Theme.Material.NoActionBar" />
+</resources>

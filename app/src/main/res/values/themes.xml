@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+      主题只负责「窗口层」，Compose 内部的主题由 ui/theme/Theme.kt 接管。
+      刻意不引入 com.google.android.material 依赖：M3 的能力已由 Compose 提供，
+      多一个 UI 依赖就多一处版本冲突面。
+    -->
+    <style name="Theme.NetScope" parent="android:Theme.Material.Light.NoActionBar" />
+</resources>

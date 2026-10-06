@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  自适应图标前景：信号弧 + 节点，隐喻「信号 → 定位问题」。
+  纯矢量、纯文本生成，不引入任何二进制资源——这样图标也能进 Git 并被审阅。
+  安全区：自适应图标的可视中心区约为 108dp 画布的 66x66（21~87），
+  内容刻意收在 21.6~86.4 之间，保证被裁成圆形 / 方形都不缺角。
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- 外层信号弧 -->
+    <path
+        android:pathData="M24.6,63 A34,34 0 0,1 83.4,63"
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="5.5"
+        android:strokeLineCap="round" />
+
+    <!-- 中层信号弧 -->
+    <path
+        android:pathData="M34.95,69 A22,22 0 0,1 73.05,69"
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="5.5"
+        android:strokeLineCap="round" />
+
+    <!-- 内层信号弧 -->
+    <path
+        android:pathData="M44.47,74.5 A11,11 0 0,1 63.53,74.5"
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="5.5"
+        android:strokeLineCap="round" />
+
+    <!-- 节点：证据链上的「已定位」锚点 -->
+    <path
+        android:pathData="M54,79 m-3.5,0 a3.5,3.5 0 1,0 7,0 a3.5,3.5 0 1,0 -7,0"
+        android:fillColor="#FFFFFF" />
+
+</vector>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  NetScope 网络诊断权限声明
+
+  设计纪律：这里声明的每一项权限，都必须能被 CapabilityProbe 的判定逻辑说明用途。
+  申报表与能力探测是一对——声明了却不探测，就会出现「权限有了但数据仍是假的」；
+  探测了却没声明，则运行时必然 SecurityException。两者必须同时成立。
+
+  权限分层（务必理解，否则 SSID 一定读不到）：
+    API ≤ 32 : 读 SSID / BSSID 依赖 ACCESS_FINE_LOCATION，且系统定位开关必须打开
+    API ≥ 33 : 首选 NEARBY_WIFI_DEVICES（带 neverForLocation）；ACCESS_FINE_LOCATION 作为回退路径保留
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- 执行 DNS / TCP / HTTP 探测的前提 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- 读取当前网络类型、网关、DNS 服务器、计费状态（net_overview） -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- 读取 WiFi 链路信息（wifi_detail） -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <!--
+      API ≤ 32 读取 SSID / BSSID / RSSI 的前置条件。
+      API 33+ 起作为 NEARBY_WIFI_DEVICES 的回退路径保留（部分 ROM 仍只认这条）。
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <!--
+      API 33+ 读取 SSID / BSSID 的正确姿势。
+      neverForLocation：声明本应用不利用该权限推断地理位置。
+      这不是为了绕过隐私要求，而是如实声明用途——本项目只做网络诊断，不采集位置。
+      若 ROM 仍拒绝提供 SSID，CapabilityProbe 会如实标记 UNSUPPORTED，绝不伪造。
+    -->
+    <uses-permission
+        android:name="android.permission.NEARBY_WIFI_DEVICES"
+        android:usesPermissionFlags="neverForLocation"
+        tools:targetApi="tiramisu" />
+
+    <!-- WiFi 不是所有设备的必备硬件，声明为非必需以免应用在平板上装不上 -->
+    <uses-feature
+        android:name="android.hardware.wifi"
+        android:required="false" />
+
+    <application
+        android:name=".NetScopeApp"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/netscope_network_security"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.NetScope">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.NetScope">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

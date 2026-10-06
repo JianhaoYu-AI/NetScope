@@ -1,0 +1,9 @@
+# gradlew 带 shebang（#!/bin/sh），行尾若被 core.autocrlf 转成 CRLF，
+# 在 Git Bash / WSL / Linux 下执行会报 "bad interpreter"。
+# 显式强制 LF，覆盖任何本机 autocrlf 配置。
+gradlew text eol=lf
+
+# Windows 批处理反过来必须 CRLF。
+*.bat text eol=crlf
+
+# properties / toml / kts 保持默认文本规范化即可。
